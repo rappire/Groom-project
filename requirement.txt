@@ -1,2 +1,12 @@
 aiohttp
 python-jose[cryptography]
+uvicorn
+fastapi
+sqlalchemy
+SQLAlchemy==1.4.25
+passlib
+pydantic
+python-multipart
+pymysql
+starlette
+bcrypt

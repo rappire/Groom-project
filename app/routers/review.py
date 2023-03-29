@@ -214,6 +214,11 @@ async def deleteReview(
     vote = db.query(Votes).filter(Votes.rK == review.pk, Votes.id == userid).first()
     if not vote:
         return
+    if vote.like == 2:
+        review.like -= 1
+    else:
+        review.dislike -= 1
+    db.add(review)
     db.delete(vote)
     db.commit()
 

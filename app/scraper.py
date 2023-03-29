@@ -1,6 +1,6 @@
 import aiohttp
 import asyncio
-from config import KAKAO_API_OPTION, KAKAO_API_KEY
+from app.config import KAKAO_API_OPTION, KAKAO_API_KEY
 from pydantic import BaseModel, Field
 from typing import Optional, Dict
 
