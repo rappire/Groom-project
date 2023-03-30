@@ -45,6 +45,22 @@ async def search(book_name: str, num: int = 20, db: Session = Depends(get_db)):
     return {"data": result}
 
 
+@router.get("/recent")
+async def showRecentReview(db: Session = Depends(get_db)):
+    result = db.query(Books).order_by(Books.updatetime.desc()).limit(5).all()
+    booklist = []
+    for i in result:
+        book = RecentReviewBook(
+            isbn=result.isbn,
+            thumbnail=result.thumbnail,
+            rate=result.rate,
+            title=result.title,
+        )
+        booklist.append(book)
+
+    return booklist
+
+
 @router.get("/{isbn}")
 async def bookInfo(
     isbn: str, id: str = Depends(get_current_user), db: Session = Depends(get_db)
@@ -87,19 +103,3 @@ async def bookInfo(
 
     book.review = reviewlist
     return book
-
-
-@router.get("/recent")
-async def showRecentReview(db: Session = Depends(get_db)):
-    result = db.query(Books).order_by(Books.updatetime.desc()).limit(5).all()
-    list = []
-    for i in result:
-        book = RecentReviewBook(
-            isbn=result.isbn,
-            thumbnail=result.thumbnail,
-            rate=result.rate,
-            title=result.title,
-        )
-        list.append(book)
-
-    return list
