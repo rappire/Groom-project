@@ -20,6 +20,13 @@ class Review(BaseModel):
     userCheck: int
 
 
+class RecentReviewBook(BaseModel):
+    isbn: str
+    thumbnail: str
+    rate: float
+    title: str
+
+
 def get_db():
     try:
         db = SessionLocal()
@@ -80,3 +87,19 @@ async def bookInfo(
 
     book.review = reviewlist
     return book
+
+
+@router.get("/recent")
+async def showRecentReview(db: Session = Depends(get_db)):
+    result = db.query(Books).order_by(Books.updatetime.desc()).limit(5).all()
+    list = []
+    for i in result:
+        book = RecentReviewBook(
+            isbn=result.isbn,
+            thumbnail=result.thumbnail,
+            rate=result.rate,
+            title=result.title,
+        )
+        list.append(book)
+
+    return list
