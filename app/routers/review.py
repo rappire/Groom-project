@@ -34,6 +34,7 @@ class UserReview(BaseModel):
     like: int
     dislike: int
     thumbnail: str
+    isbn: str
 
 
 def get_db():
@@ -238,6 +239,7 @@ async def showUserReview(
             rate=review.rate,
             thumbnail=book.thumbnail,
             title=book.title,
+            isbn=review.isbn,
         )
         reviewList.append(result)
     return reviewList
