@@ -47,9 +47,9 @@ async def search(book_name: str, num: int = 20, db: Session = Depends(get_db)):
 
 @router.get("/recent")
 async def showRecentReview(db: Session = Depends(get_db)):
-    result = db.query(Books).order_by(Books.updatetime.desc()).limit(5).all()
+    results = db.query(Books).order_by(Books.updatetime.desc()).limit(6).all()
     booklist = []
-    for i in result:
+    for result in results:
         book = RecentReviewBook(
             isbn=result.isbn,
             thumbnail=result.thumbnail,
