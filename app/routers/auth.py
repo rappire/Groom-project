@@ -80,7 +80,7 @@ async def get_current_user(token: str = Depends(oauth2Bearer)):
             raise HTTPException(status_code=404, detail="Id not found")
         return id
     except JWTError:
-        raise HTTPException(status_code=404, detail="Id not found")
+        raise HTTPException(status_code=404, detail="token expired")
 
 
 # async def get_current_user(request: Request):
