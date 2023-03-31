@@ -1,6 +1,6 @@
-FROM python:3.10
-COPY . .
-RUN pip install -r requirements.txt
-CMD ["python3", "server.py"]
+FROM tiangolo/uvicorn-gunicorn:python3.10
+COPY . /app
+COPY ./requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
  
 
